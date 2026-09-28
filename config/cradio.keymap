@@ -12,6 +12,11 @@
  *
  * studio_unlock = TRI layer + Q (that is, LT(2,TAB) + LT(1,BSPC) + Q)
  *
+ * The LEFT (symbols) layer is reachable three ways: hold the TAB thumb key, or
+ * hold either bottom-row outermost key (Z on the left half, / on the right half -
+ * both still tap their normal character). Whichever entry point is used, holding
+ * it and tapping the TAB thumb key (now free) sends Escape.
+ *
  * Language layout: the keyboard defaults to a Swedish OS keyboard layout (layers
  * 0-2). Press LANG (on Tri) to toggle a secondary layer set (layers 4-6) that
  * compensates for an English (US) OS keyboard layout instead, so the same physical
@@ -94,8 +99,8 @@
         //│  A (Sft) │  S (Alt) │  D (Ctl) │  F (Gui) │  G       │   │  H       │  J (Gui) │  K (Ctl) │  L (Alt) │  ' (Sft) │
             HRML(A,        S,         D,         F)     &kp G          &kp H      HRMR(J,        K,         L,        NUHS)
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│  Z       │  X       │  C       │  V       │  B       │   │  N       │  M       │ , <      │ . >      │ / ?      │
-            &kp Z      &kp X      &kp C      &kp V      &kp B          &kp N      &kp M      &kp COMMA  &kp DOT    &kp LS(N7)
+        //│ Z (Sym)  │  X       │  C       │  V       │  B       │   │  N       │  M       │ , <      │ . >      │ / ? (Sym)│
+            &lt 2 Z    &kp X      &kp C      &kp V      &kp B          &kp N      &kp M      &kp COMMA  &kp DOT    &lt 2 LS(N7)
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
                                             &lt 2 TAB   &lt 1 BSPC    &kp ENTER  &kp SPACE
         //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
@@ -121,7 +126,9 @@
             >;
         };
 
-        // Swedish symbols layer.
+        // Swedish symbols layer. Reachable via TAB, Z or "/" (see default_layer). ESC
+        // sits on the TAB thumb-key position, since it's free whenever this layer was
+        // entered via Z or "/" instead.
         left_layer {
             display-name = "Left";
             bindings = <
@@ -135,7 +142,7 @@
         //│          │          │          │          │          │   │  &       │  _       │  +       │  │       │          │
             &trans     &trans     &trans     &trans     &trans         &kp LS(N6) &kp LS(FSLH) &kp MINUS &kp RA(N7) &trans
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
-                                             &trans     &trans         &trans     &trans
+                                            &kp ESC     &trans         &trans     &trans
         //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
             >;
         };
@@ -171,8 +178,8 @@
         //│          │          │          │          │          │   │          │          │          │          │  ' (Sft) │
             &trans     &trans     &trans     &trans     &trans         &trans     &trans     &trans     &trans     &ht RCTRL SQT
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│          │          │          │          │          │   │          │          │          │          │ / ?      │
-            &trans     &trans     &trans     &trans     &trans         &trans     &trans     &trans     &trans     &kp FSLH
+        //│ Z (Sym)  │          │          │          │          │   │          │          │          │          │ / ? (Sym)│
+            &lt 6 Z     &trans     &trans     &trans     &trans         &trans     &trans     &trans     &trans     &lt 6 FSLH
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
                                             &lt 6 TAB   &lt 5 BSPC     &trans     &trans
         //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
@@ -200,7 +207,8 @@
             >;
         };
 
-        // English (secondary) symbols layer.
+        // English (secondary) symbols layer. Reachable via TAB, Z or "/" (see
+        // default_layer_en). ESC sits on the TAB thumb-key position, same as left_layer.
         left_layer_en {
             display-name = "Left EN";
             bindings = <
@@ -214,7 +222,7 @@
         //│          │          │          │          │          │   │  &       │  _       │  +       │  │       │          │
             &trans     &trans     &trans     &trans     &trans         &kp AMPS   &kp UNDER  &kp PLUS   &kp PIPE   &trans
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
-                                             &trans     &trans         &trans     &trans
+                                            &kp ESC     &trans         &trans     &trans
         //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
             >;
         };

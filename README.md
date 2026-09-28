@@ -18,11 +18,23 @@ ZMK configuration for **Zyra FT** (Sweep/Cradio) - minimalist ergonomic FalbaTec
 |---|---|---|
 | 0 | `default_layer` | QWERTY base + home-row mods, compensated for a **Swedish** OS keyboard layout (default) |
 | 1 | `right_layer` | Numbers, navigation, compensated for Swedish, activated by the left thumb (`BSPC`) |
-| 2 | `left_layer` | Symbols, brackets, compensated for Swedish, activated by the left thumb (`TAB`) |
+| 2 | `left_layer` | Symbols, brackets, compensated for Swedish, activated by the left thumb (`TAB`), `Z` or `/` |
 | 3 | `tri_layer` | System, BT controls, both left thumb keys together |
 | 4 | `default_layer_en` | English OS-layout overlay of the base layer, toggled via `LANG` |
 | 5 | `right_layer_en` | English OS-layout overlay of `right_layer` |
 | 6 | `left_layer_en` | English OS-layout overlay of `left_layer` |
+
+## Symbols layer access
+
+The `left_layer`/`left_layer_en` symbols layer can be reached three ways:
+
+- Hold the `TAB` thumb key (as usual).
+- Hold `Z` (bottom-row, outermost key on the left half).
+- Hold `/` (bottom-row, outermost key on the right half).
+
+`Z` and `/` still tap their normal character when tapped briefly. Whichever key is
+used to enter the layer, the `TAB` thumb key becomes free, so tapping it while the
+layer is held sends **Escape**.
 
 ## Home-row mods
 
