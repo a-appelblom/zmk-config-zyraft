@@ -17,9 +17,9 @@ ZMK configuration for **Zyra FT** (Sweep/Cradio) - minimalist ergonomic FalbaTec
 | # | Name | Function |
 |---|---|---|
 | 0 | `default_layer` | QWERTY base + home-row mods |
-| 1 | `right_layer` | Numbers, navigation, activated by right thumb |
-| 2 | `left_layer` | Symbols, brackets, activated by left thumb |
-| 3 | `tri_layer` | System, BT controls, both thumbs together |
+| 1 | `right_layer` | Numbers, navigation, activated by the left thumb (`BSPC`) |
+| 2 | `left_layer` | Symbols, brackets, activated by the left thumb (`TAB`) |
+| 3 | `tri_layer` | System, BT controls, both left thumb keys together |
 
 ## Home-row mods
 
@@ -71,7 +71,7 @@ The keyboard supports 5 independent Bluetooth profiles. Control is handled in th
 | `.` | Bluetooth mode |
 
 System layer activation:
-- hold the left thumb `TAB` and right thumb `BSPC` together
+- hold the left thumb keys `TAB` and `BSPC` together
 - the Tri layer activates automatically as a conditional layer
 
 ## Build
