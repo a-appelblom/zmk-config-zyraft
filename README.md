@@ -10,7 +10,7 @@ ZMK configuration for **Zyra FT** (Sweep/Cradio) - minimalist ergonomic FalbaTec
 - Controllers: 2x nice!nano v2
 - No display, pin D1/P0.06 used by switch matrix
 - 34 keys, 3 rows x 5 columns + 2 thumb keys per side
-- Home-row mods enabled, Shift/Alt/Ctrl/Gui
+- Home-row mods enabled: Ctrl/Alt/Gui/Shift on the left, mirrored on the right
 
 ## Layers
 
@@ -25,17 +25,17 @@ ZMK configuration for **Zyra FT** (Sweep/Cradio) - minimalist ergonomic FalbaTec
 
 ### Left hand
 
-- `A` = Shift
+- `A` = Ctrl
 - `S` = Alt
-- `D` = Ctrl
-- `F` = Gui
+- `D` = Gui
+- `F` = Shift
 
 ### Right hand
 
-- `J` = Gui
-- `K` = Ctrl
+- `J` = Shift
+- `K` = Gui
 - `L` = Alt
-- `'` = Shift
+- `'` = Ctrl
 
 Parameters:
 - Tapping-term: 220ms
