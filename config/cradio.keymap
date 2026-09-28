@@ -1,7 +1,8 @@
 /*
  * Zyra FT (Cradio/Sweep) keymap
  *
- * 34 keys, 4 layers: BASE, RIGHT (numbers/navigation), LEFT (symbols), TRI (system)
+ * 34 keys, 7 layers: BASE, RIGHT (numbers/navigation), LEFT (symbols), TRI (system),
+ * BASE SE, RIGHT SE, LEFT SE (Swedish-OS secondary layers, macOS-targeted)
  * Home-row mods: Ctrl/Alt/Gui/Shift on the left (A/S/D/F), mirrored on the right (J/K/L/')
  * ZMK Studio compatible (left = central, USB)
  *
@@ -10,6 +11,13 @@
  * The TRI layer activates when both thumb layers (RIGHT and LEFT) are pressed.
  *
  * studio_unlock = TRI layer + Q (that is, LT(2,TAB) + LT(1,BSPC) + Q)
+ *
+ * Language layout: the keyboard defaults to an English (US) OS keyboard layout
+ * (layers 0-2). Press LANG (on Tri) to toggle a secondary layer set (layers 4-6)
+ * that compensates for a Swedish OS keyboard layout instead, so the same physical
+ * keys always produce the same characters regardless of which language the OS is
+ * set to. The Swedish secondary layers are targeted primarily at macOS; only the
+ * "{", "}", "|" and "\" keys would need adjusting for Windows/Linux.
  */
 
 #include <behaviors.dtsi>
@@ -35,11 +43,39 @@
         };
     };
 
+    // Swedish dead-key defeat macros: tap the dead key then Space so the bare
+    // character (^, ~, `) is produced immediately instead of waiting to combine
+    // with the next key press.
+    macros {
+        se_caret: se_caret {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp CARET &kp SPACE>;
+        };
+
+        se_tilde: se_tilde {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp TILDE &kp SPACE>;
+        };
+
+        se_grave: se_grave {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp GRAVE &kp SPACE>;
+        };
+    };
+
     // Layer 1 (RIGHT) + Layer 2 (LEFT) simultaneously -> Layer 3 (TRI)
+    // Layer 5 (RIGHT SE) + Layer 6 (LEFT SE) simultaneously -> Layer 3 (TRI)
     conditional_layers {
         compatible = "zmk,conditional-layers";
         tri_layer {
             if-layers = <1 2>;
+            then-layer = <3>;
+        };
+        tri_layer_se {
+            if-layers = <5 6>;
             then-layer = <3>;
         };
     };
@@ -47,6 +83,7 @@
     keymap {
         compatible = "zmk,keymap";
 
+        // English (default) base layer.
         default_layer {
             display-name = "Base";
             bindings = <
@@ -105,14 +142,77 @@
             display-name = "Tri";
             bindings = <
         //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
-        //│ STUDIO   │          │          │          │          │   │          │          │          │          │ RESET    │
-          &studio_unlock &trans     &trans     &trans     &trans         &trans     &trans     &trans     &trans     &sys_reset
+        //│ STUDIO   │          │          │          │          │   │ LANG     │          │          │          │ RESET    │
+          &studio_unlock &trans     &trans     &trans     &trans         &tog 4     &trans     &trans     &trans     &sys_reset
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
         //│ BOOT     │          │          │          │          │   │          │          │          │          │ BOOT     │
           &bootloader  &trans       &trans     &trans     &trans         &trans     &trans     &trans     &trans   &bootloader
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
         //│ BT 0     │ BT 1     │ BT 2     │ BT 3     │ BT 4     │   │ BT CLR   │ BT CLRALL│ USB      │ BLE      │          │
         &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4   &bt BT_CLR &bt BT_CLR_ALL &out OUT_USB &out OUT_BLE &trans
+        //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
+                                             &trans     &trans         &trans     &trans
+        //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
+            >;
+        };
+
+        // Swedish-compensated base layer. Overlays default_layer (toggled via LANG on Tri).
+        // Letters are untouched (identical on US and Swedish keyboards); only the apostrophe
+        // key and the thumb layer-taps (pointing at right_layer_se/left_layer_se) change.
+        default_layer_se {
+            display-name = "Base SE";
+            bindings = <
+        //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
+        //│          │          │          │          │          │   │          │          │          │          │          │
+            &trans     &trans     &trans     &trans     &trans         &trans     &trans     &trans     &trans     &trans
+        //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
+        //│          │          │          │          │          │   │          │          │          │          │  ' (Sft) │
+            &trans     &trans     &trans     &trans     &trans         &trans     &trans     &trans     &trans     &ht RCTRL NUHS
+        //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
+        //│          │          │          │          │          │   │          │          │          │          │ / ?      │
+            &trans     &trans     &trans     &trans     &trans         &trans     &trans     &trans     &trans     &kp LS(N7)
+        //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
+                                            &lt 6 TAB   &lt 5 BSPC     &trans     &trans
+        //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
+            >;
+        };
+
+        // Swedish-compensated numbers/navigation layer. Fully self-contained: it is a
+        // momentary layer, so it cannot rely on falling through to right_layer (which is
+        // never active at the same time).
+        right_layer_se {
+            display-name = "Right SE";
+            bindings = <
+        //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
+        //│ INSERT   │  1       │  2       │  3       │          │   │ HOME     │ PAGE DN  │ PAGE UP  │ END      │  :       │
+            &kp INS    &kp N1     &kp N2     &kp N3     &trans         &kp HOME   &kp PG_DN  &kp PG_UP  &kp END    &kp LS(DOT)
+        //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
+        //│ DELETE   │  4       │  5       │  6       │          │   │ LEFT     │ DOWN     │ UP       │ RIGHT    │  ;       │
+            &kp DEL    &kp N4     &kp N5     &kp N6     &trans         &kp LEFT   &kp DOWN   &kp UP     &kp RIGHT  &kp LS(COMMA)
+        //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
+        //│ CAPS WORD│  7       │  8       │  9       │  0       │   │          │          │          │          │          │
+           &caps_word  &kp N7     &kp N8     &kp N9     &kp N0         &trans     &trans     &trans     &trans     &trans
+        //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
+                                             &trans     &kp ESC        &trans     &trans
+        //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
+            >;
+        };
+
+        // Swedish-compensated symbols layer. Every symbol is remapped so the physical key
+        // still outputs the same character as on left_layer, even with the OS set to Swedish.
+        // Mappings target macOS's Swedish layout (Option = AltGr).
+        left_layer_se {
+            display-name = "Left SE";
+            bindings = <
+        //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
+        //│          │  [       │  {       │  }       │          │   │  ^       │  (       │  )       │  ]       │  ~       │
+            &trans     &kp RA(N8) &kp LS(RA(N8)) &kp LS(RA(N9)) &trans   &se_caret  &kp LS(N8) &kp LS(N9) &kp RA(N9) &se_tilde
+        //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
+        //│  !       │  @       │  #       │  $       │  %       │   │  *       │  -       │  =       │  \       │  `       │
+            &kp EXCL   &kp RA(N2) &kp HASH   &kp RA(N4) &kp PRCNT      &kp LS(NUHS) &kp FSLH &kp LS(N0) &kp LS(RA(N7)) &se_grave
+        //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
+        //│          │          │          │          │          │   │  &       │  _       │  +       │  │       │          │
+            &trans     &trans     &trans     &trans     &trans         &kp LS(N6) &kp LS(FSLH) &kp MINUS &kp RA(N7) &trans
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
                                              &trans     &trans         &trans     &trans
         //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯

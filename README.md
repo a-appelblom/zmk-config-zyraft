@@ -16,10 +16,13 @@ ZMK configuration for **Zyra FT** (Sweep/Cradio) - minimalist ergonomic FalbaTec
 
 | # | Name | Function |
 |---|---|---|
-| 0 | `default_layer` | QWERTY base + home-row mods |
+| 0 | `default_layer` | QWERTY base + home-row mods (default, English OS layout) |
 | 1 | `right_layer` | Numbers, navigation, activated by the left thumb (`BSPC`) |
 | 2 | `left_layer` | Symbols, brackets, activated by the left thumb (`TAB`) |
 | 3 | `tri_layer` | System, BT controls, both left thumb keys together |
+| 4 | `default_layer_se` | Swedish OS-layout overlay of the base layer, toggled via `LANG` |
+| 5 | `right_layer_se` | Swedish OS-layout overlay of `right_layer` |
+| 6 | `left_layer_se` | Swedish OS-layout overlay of `left_layer` |
 
 ## Home-row mods
 
@@ -73,6 +76,24 @@ The keyboard supports 5 independent Bluetooth profiles. Control is handled in th
 System layer activation:
 - hold the left thumb keys `TAB` and `BSPC` together
 - the Tri layer activates automatically as a conditional layer
+
+## Swedish OS-layout support
+
+ZMK sends raw HID keycodes; the OS keyboard-language setting determines which character each
+keycode produces. Switching the OS language to Swedish would shift most punctuation on the
+`right_layer`/`left_layer` symbol keys. `default_layer_se`, `right_layer_se` and `left_layer_se`
+compensate for this so the same physical keys keep producing the same symbols with the OS set
+to Swedish.
+
+- Press `LANG` on the `tri_layer` (top-left key of the right half) to toggle the Swedish
+  overlay on or off. Press it again to switch back to English.
+- Letters are unaffected - Swedish keyboards use the same QWERTY letter positions as US ones.
+- `^`, `~` and `` ` `` are dead keys on the Swedish layout; the SE layer sends a macro that
+  presses the compensated combo followed by Space so the bare character still appears
+  immediately.
+- Mappings target **macOS's** Swedish layout (Option key = AltGr). Windows/Linux use
+  different combinations for `{`, `}`, `|` and `\`, so those four keys would need adjusting
+  if used with Windows or Linux set to Swedish.
 
 ## Build
 
