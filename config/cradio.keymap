@@ -1,15 +1,15 @@
 /*
  * Zyra FT (Cradio/Sweep) keymap
  *
- * 34 klawisze, 4 warstwy: BASE, RIGHT (cyfry/nawigacja), LEFT (symbole), TRI (system)
- * Home-row mods: Shift/Alt/Ctrl/Gui na home row (A/S/D/F lewa, J/K/L/' prawa)
- * ZMK Studio kompatybilne (lewa = central, USB)
+ * 34 keys, 4 layers: BASE, RIGHT (numbers/navigation), LEFT (symbols), TRI (system)
+ * Home-row mods: Shift/Alt/Ctrl/Gui on the home row (A/S/D/F left, J/K/L/' right)
+ * ZMK Studio compatible (left = central, USB)
  *
- * Bez nice!view - pin D1 (P0.06) jest zajęty przez switch matrix Sweepa.
+ * No nice!view - pin D1 (P0.06) is used by the Sweep switch matrix.
  *
- * TRI layer aktywuje się gdy oba thumb-layery (RIGHT i LEFT) są wciśnięte.
+ * The TRI layer activates when both thumb layers (RIGHT and LEFT) are pressed.
  *
- * studio_unlock = TRI layer + Q (czyli LT(2,TAB) + LT(1,BSPC) + Q)
+ * studio_unlock = TRI layer + Q (that is, LT(2,TAB) + LT(1,BSPC) + Q)
  */
 
 #include <behaviors.dtsi>
@@ -17,9 +17,9 @@
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/outputs.h>
 
-// Home-row mods - lewa ręka: Shift/Alt/Ctrl/Gui na A/S/D/F
+// Home-row mods - left hand: Shift/Alt/Ctrl/Gui on A/S/D/F
 #define HRML(k1,k2,k3,k4) &ht LSHFT k1  &ht LALT k2  &ht LCTRL k3  &ht LGUI k4
-// Prawa ręka lustrzanie: Gui/Ctrl/Alt/Shift na J/K/L/'
+// Right hand mirrored: Gui/Ctrl/Alt/Shift on J/K/L/'
 #define HRMR(k1,k2,k3,k4) &ht RGUI k1  &ht RCTRL k2  &ht RALT k3  &ht RSHFT k4
 
 / {
@@ -35,7 +35,7 @@
         };
     };
 
-    // Layer 1 (RIGHT) + Layer 2 (LEFT) jednocześnie -> Layer 3 (TRI)
+    // Layer 1 (RIGHT) + Layer 2 (LEFT) simultaneously -> Layer 3 (TRI)
     conditional_layers {
         compatible = "zmk,conditional-layers";
         tri_layer {
