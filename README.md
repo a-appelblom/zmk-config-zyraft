@@ -17,8 +17,8 @@ ZMK configuration for **Zyra FT** (Sweep/Cradio) - minimalist ergonomic FalbaTec
 | # | Name | Function |
 |---|---|---|
 | 0 | `default_layer` | QWERTY base + home-row mods, compensated for a **Swedish** OS keyboard layout (default) |
-| 1 | `right_layer` | Numbers, navigation, compensated for Swedish, activated by the left thumb (`BSPC`) |
-| 2 | `left_layer` | Symbols, brackets, compensated for Swedish, activated by the left thumb (`TAB`), `Z` or `/` |
+| 1 | `right_layer` | Numbers, navigation (arrows on `I`/`J`/`K`/`L`), compensated for Swedish, activated by the left thumb (`BSPC`) |
+| 2 | `left_layer` | Symbols, brackets, Swedish letters, compensated for Swedish, activated by the left thumb (`TAB`), `Z` or `-` |
 | 3 | `tri_layer` | System, BT controls, both left thumb keys together |
 | 4 | `default_layer_en` | English OS-layout overlay of the base layer, toggled via `LANG` |
 | 5 | `right_layer_en` | English OS-layout overlay of `right_layer` |
@@ -30,14 +30,22 @@ The `left_layer`/`left_layer_en` symbols layer can be reached three ways:
 
 - Hold the `TAB` thumb key (as usual).
 - Hold `Z` (bottom-row, outermost key on the left half).
-- Hold `/` (bottom-row, outermost key on the right half).
+- Hold `-` (bottom-row, outermost key on the right half - this key used to be `/`;
+  `/` now lives on the symbols layer instead, see below).
 
-`Z` and `/` still tap their normal character when tapped briefly. Whichever key is
+`Z` and `-` still tap their normal character when tapped briefly. Whichever key is
 used to enter the layer, the `TAB` thumb key becomes free, so tapping it while the
 layer is held sends **Escape**.
 
-`"` and `'` are also available on the symbols layer, on the `Q` and `T` keys
-respectively (in addition to `'` already living on the home row).
+The symbols layer layout (based on the ZSA Voyager symbols layer):
+
+- Top row: `!` `"` `'` `~` `*`  |  `{` `}` `#` `+` `?`
+- Home row: (trans) `Å` `Ä` `Ö` `` ` ``  |  `[` `]` `$` `&` `|`
+- Bottom row: `/` `^` `%` `\` `@`  |  `(` `)` `<` `>` (hold, entry key)
+
+`Å`/`Ä`/`Ö` are only available on the Swedish symbols layer (`left_layer`); the
+English one (`left_layer_en`) leaves those slots transparent since there's no
+single-key way to type them on an English OS.
 
 ## Home-row mods
 
@@ -53,7 +61,7 @@ respectively (in addition to `'` already living on the home row).
 - `J` = Shift
 - `K` = Gui
 - `L` = Alt
-- `'` = Ctrl
+- `=` = Ctrl
 
 Parameters:
 - Tapping-term: 220ms
@@ -109,10 +117,9 @@ compensated so the same physical keys produce the expected Swedish symbols). `de
 - Mappings target **macOS's** Swedish layout (Option key = AltGr). Windows/Linux use
   different combinations for `{`, `}`, `|` and `\`, so those four keys would need adjusting
   if used with Windows or Linux set to Swedish.
-- Swedish letters `Å`, `Ä`, `Ö` are available on `right_layer` (numbers layer), on the
-  bottom-right row (`N`/`M`/`,` columns). They're only mapped in the Swedish layer set,
-  since the English layer set assumes an English OS layout with no single-key way to
-  produce them.
+- Swedish letters `Å`, `Ä`, `Ö` are available on `left_layer` (symbols layer), on the
+  home row. They're only mapped in the Swedish layer set, since the English layer set
+  assumes an English OS layout with no single-key way to produce them.
 
 ## Build
 

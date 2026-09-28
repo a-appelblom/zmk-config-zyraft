@@ -3,7 +3,7 @@
  *
  * 34 keys, 7 layers: BASE, RIGHT (numbers/navigation), LEFT (symbols), TRI (system),
  * BASE EN, RIGHT EN, LEFT EN (English-OS secondary layers, macOS-targeted)
- * Home-row mods: Ctrl/Alt/Gui/Shift on the left (A/S/D/F), mirrored on the right (J/K/L/')
+ * Home-row mods: Ctrl/Alt/Gui/Shift on the left (A/S/D/F), mirrored on the right (J/K/L/=)
  * ZMK Studio compatible (left = central, USB)
  *
  * No nice!view - pin D1 (P0.06) is used by the Sweep switch matrix.
@@ -13,12 +13,16 @@
  * studio_unlock = TRI layer + Q (that is, LT(2,TAB) + LT(1,BSPC) + Q)
  *
  * The LEFT (symbols) layer is reachable three ways: hold the TAB thumb key, or
- * hold either bottom-row outermost key (Z on the left half, / on the right half -
+ * hold either bottom-row outermost key (Z on the left half, - on the right half -
  * both still tap their normal character). Whichever entry point is used, holding
- * it and tapping the TAB thumb key (now free) sends Escape.
+ * it and tapping the TAB thumb key (now free) sends Escape. "/" moved to the
+ * symbols layer itself (left column, bottom row).
  *
- * Swedish letters (Å/Ä/Ö) live on the RIGHT layer's bottom-right row (only in the
- * Swedish layer set - the English layer set has no single-key way to type them).
+ * Arrow keys live in an IJKL cluster on the RIGHT layer: I/J/K/L = Up/Left/Down/Right,
+ * with Home/PgDn/End on Y/U/O and PgUp on H (displaced from I to make room for Up).
+ *
+ * Swedish letters (Å/Ä/Ö) live on the LEFT layer's home row (only in the Swedish
+ * layer set - the English layer set has no single-key way to type them).
  *
  * Language layout: the keyboard defaults to a Swedish OS keyboard layout (layers
  * 0-2). Press LANG (on Tri) to toggle a secondary layer set (layers 4-6) that
@@ -101,11 +105,11 @@
         //│  Q       │  W       │  E       │  R       │  T       │   │  Y       │  U       │  I       │  O       │  P       │
             &kp Q      &kp W      &kp E      &kp R      &kp T          &kp Y      &kp U      &kp I      &kp O      &kp P
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│  A (Sft) │  S (Alt) │  D (Ctl) │  F (Gui) │  G       │   │  H       │  J (Gui) │  K (Ctl) │  L (Alt) │  ' (Sft) │
-            HRML(A,        S,         D,         F)     &kp G          &kp H      HRMR(J,        K,         L,        NUHS)
+        //│  A (Sft) │  S (Alt) │  D (Ctl) │  F (Gui) │  G       │   │  H       │  J (Gui) │  K (Ctl) │  L (Alt) │  = (Sft) │
+            HRML(A,        S,         D,         F)     &kp G          &kp H      HRMR(J,        K,         L,        LS(N0))
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│ Z (Sym)  │  X       │  C       │  V       │  B       │   │  N       │  M       │ , <      │ . >      │ / ? (Sym)│
-            &lt 2 Z    &kp X      &kp C      &kp V      &kp B          &kp N      &kp M      &kp COMMA  &kp DOT    &lt 2 LS(N7)
+        //│ Z (Sym)  │  X       │  C       │  V       │  B       │   │  N       │  M       │ , <      │ . >      │ - (Sym)  │
+            &lt 2 Z    &kp X      &kp C      &kp V      &kp B          &kp N      &kp M      &kp COMMA  &kp DOT    &lt 2 FSLH
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
                                             &lt 2 TAB   &lt 1 BSPC    &kp ENTER  &kp SPACE
         //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
@@ -117,35 +121,37 @@
             display-name = "Right";
             bindings = <
         //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
-        //│ INSERT   │  1       │  2       │  3       │          │   │ HOME     │ PAGE DN  │ PAGE UP  │ END      │  :       │
-            &kp INS    &kp N1     &kp N2     &kp N3     &trans         &kp HOME   &kp PG_DN  &kp PG_UP  &kp END    &kp LS(DOT)
+        //│ INSERT   │  1       │  2       │  3       │          │   │ HOME     │ PAGE DN  │ UP       │ END      │  :       │
+            &kp INS    &kp N1     &kp N2     &kp N3     &trans         &kp HOME   &kp PG_DN  &kp UP     &kp END    &kp LS(DOT)
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│ DELETE   │  4       │  5       │  6       │          │   │ LEFT     │ DOWN     │ UP       │ RIGHT    │  ;       │
-            &kp DEL    &kp N4     &kp N5     &kp N6     &trans         &kp LEFT   &kp DOWN   &kp UP     &kp RIGHT  &kp LS(COMMA)
+        //│ DELETE   │  4       │  5       │  6       │          │   │ PAGE UP  │ LEFT     │ DOWN     │ RIGHT    │  ;       │
+            &kp DEL    &kp N4     &kp N5     &kp N6     &trans         &kp PG_UP  &kp LEFT   &kp DOWN   &kp RIGHT  &kp LS(COMMA)
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│ CAPS WORD│  7       │  8       │  9       │  0       │   │  Å       │  Ä       │  Ö       │          │          │
-           &caps_word  &kp N7     &kp N8     &kp N9     &kp N0         &kp LBKT   &kp SQT    &kp SEMI   &trans     &trans
+        //│ CAPS WORD│  7       │  8       │  9       │  0       │   │          │          │          │          │          │
+           &caps_word  &kp N7     &kp N8     &kp N9     &kp N0         &trans     &trans     &trans     &trans     &trans
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
                                              &trans     &kp ESC        &trans     &trans
         //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
             >;
         };
 
-        // Swedish symbols layer. Reachable via TAB, Z or "/" (see default_layer). ESC
+        // Swedish symbols layer. Reachable via TAB, Z or "-" (see default_layer). ESC
         // sits on the TAB thumb-key position, since it's free whenever this layer was
-        // entered via Z or "/" instead.
+        // entered via Z or "-" instead. Layout follows the ZSA Voyager symbols layer:
+        // quotes/tilde/asterisk on the top row, Swedish letters (Å/Ä/Ö) and grave on the
+        // home row, "/" (moved off the base layer) plus ^/%/\/@ on the bottom row.
         left_layer {
             display-name = "Left";
             bindings = <
         //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
-        //│  "       │  [       │  {       │  }       │  '       │   │  ^       │  (       │  )       │  ]       │  ~       │
-            &kp LS(N2) &kp RA(N8) &kp LS(RA(N8)) &kp LS(RA(N9)) &kp NUHS   &se_caret  &kp LS(N8) &kp LS(N9) &kp RA(N9) &se_tilde
+        //│  !       │  "       │  '       │  ~       │  *       │   │  {       │  }       │  #       │  +       │  ?       │
+            &kp EXCL   &kp LS(N2) &kp NUHS   &se_tilde  &kp LS(NUHS)   &kp LS(RA(N8)) &kp LS(RA(N9)) &kp HASH &kp MINUS &kp LS(MINUS)
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│  !       │  @       │  #       │  $       │  %       │   │  *       │  -       │  =       │  \       │  `       │
-            &kp EXCL   &kp RA(N2) &kp HASH   &kp RA(N4) &kp PRCNT      &kp LS(NUHS) &kp FSLH &kp LS(N0) &kp LS(RA(N7)) &se_grave
+        //│          │  Å       │  Ä       │  Ö       │  `       │   │  [       │  ]       │  $       │  &       │  │       │
+            &trans     &kp LBKT   &kp SQT    &kp SEMI   &se_grave      &kp RA(N8) &kp RA(N9) &kp RA(N4) &kp LS(N6) &kp RA(N7)
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│          │          │          │          │          │   │  &       │  _       │  +       │  │       │          │
-            &trans     &trans     &trans     &trans     &trans         &kp LS(N6) &kp LS(FSLH) &kp MINUS &kp RA(N7) &trans
+        //│  /       │  ^       │  %       │  \       │  @       │   │  (       │  )       │  <       │  >       │          │
+            &kp LS(N7) &se_caret  &kp PRCNT  &kp LS(RA(N7)) &kp RA(N2) &kp LS(N8) &kp LS(N9) &kp NUBS   &kp LS(NUBS) &trans
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
                                             &kp ESC     &trans         &trans     &trans
         //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
@@ -171,7 +177,7 @@
         };
 
         // English (secondary) base layer. Overlays default_layer (toggled via LANG on Tri).
-        // Letters are untouched (identical on US and Swedish keyboards); only the apostrophe
+        // Letters are untouched (identical on US and Swedish keyboards); only the equals
         // key and the thumb layer-taps (pointing at right_layer_en/left_layer_en) change.
         default_layer_en {
             display-name = "Base EN";
@@ -180,11 +186,11 @@
         //│          │          │          │          │          │   │          │          │          │          │          │
             &trans     &trans     &trans     &trans     &trans         &trans     &trans     &trans     &trans     &trans
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│          │          │          │          │          │   │          │          │          │          │  ' (Sft) │
-            &trans     &trans     &trans     &trans     &trans         &trans     &trans     &trans     &trans     &ht RCTRL SQT
+        //│          │          │          │          │          │   │          │          │          │          │  = (Sft) │
+            &trans     &trans     &trans     &trans     &trans         &trans     &trans     &trans     &trans     &ht RCTRL EQUAL
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│ Z (Sym)  │          │          │          │          │   │          │          │          │          │ / ? (Sym)│
-            &lt 6 Z     &trans     &trans     &trans     &trans         &trans     &trans     &trans     &trans     &lt 6 FSLH
+        //│ Z (Sym)  │          │          │          │          │   │          │          │          │          │ - (Sym)  │
+            &lt 6 Z     &trans     &trans     &trans     &trans         &trans     &trans     &trans     &trans     &lt 6 MINUS
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
                                             &lt 6 TAB   &lt 5 BSPC     &trans     &trans
         //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
@@ -198,11 +204,11 @@
             display-name = "Right EN";
             bindings = <
         //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
-        //│ INSERT   │  1       │  2       │  3       │          │   │ HOME     │ PAGE DN  │ PAGE UP  │ END      │  :       │
-            &kp INS    &kp N1     &kp N2     &kp N3     &trans         &kp HOME   &kp PG_DN  &kp PG_UP  &kp END    &kp COLON
+        //│ INSERT   │  1       │  2       │  3       │          │   │ HOME     │ PAGE DN  │ UP       │ END      │  :       │
+            &kp INS    &kp N1     &kp N2     &kp N3     &trans         &kp HOME   &kp PG_DN  &kp UP     &kp END    &kp COLON
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│ DELETE   │  4       │  5       │  6       │          │   │ LEFT     │ DOWN     │ UP       │ RIGHT    │  ;       │
-            &kp DEL    &kp N4     &kp N5     &kp N6     &trans         &kp LEFT   &kp DOWN   &kp UP     &kp RIGHT  &kp SEMI
+        //│ DELETE   │  4       │  5       │  6       │          │   │ PAGE UP  │ LEFT     │ DOWN     │ RIGHT    │  ;       │
+            &kp DEL    &kp N4     &kp N5     &kp N6     &trans         &kp PG_UP  &kp LEFT   &kp DOWN   &kp RIGHT  &kp SEMI
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
         //│ CAPS WORD│  7       │  8       │  9       │  0       │   │          │          │          │          │          │
            &caps_word  &kp N7     &kp N8     &kp N9     &kp N0         &trans     &trans     &trans     &trans     &trans
@@ -212,20 +218,22 @@
             >;
         };
 
-        // English (secondary) symbols layer. Reachable via TAB, Z or "/" (see
+        // English (secondary) symbols layer. Reachable via TAB, Z or "-" (see
         // default_layer_en). ESC sits on the TAB thumb-key position, same as left_layer.
+        // Same layout as left_layer, using raw US keycodes; no single-key Å/Ä/Ö exist on
+        // an English OS, so those slots stay transparent.
         left_layer_en {
             display-name = "Left EN";
             bindings = <
         //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
-        //│  "       │  [       │  {       │  }       │  '       │   │  ^       │  (       │  )       │  ]       │  ~       │
-            &kp DQT    &kp LBKT   &kp LBRC   &kp RBRC   &kp SQT        &kp CARET  &kp LPAR   &kp RPAR   &kp RBKT   &kp TILDE
+        //│  !       │  "       │  '       │  ~       │  *       │   │  {       │  }       │  #       │  +       │  ?       │
+            &kp EXCL   &kp DQT    &kp SQT    &kp TILDE  &kp ASTRK      &kp LBRC   &kp RBRC   &kp HASH   &kp PLUS   &kp QMARK
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│  !       │  @       │  #       │  $       │  %       │   │  *       │  -       │  =       │  \       │  `       │
-            &kp EXCL   &kp AT     &kp HASH   &kp DLLR   &kp PRCNT      &kp ASTRK  &kp MINUS  &kp EQUAL  &kp BSLH   &kp GRAVE
+        //│          │          │          │          │  `       │   │  [       │  ]       │  $       │  &       │  │       │
+            &trans     &trans     &trans     &trans     &kp GRAVE      &kp LBKT   &kp RBKT   &kp DLLR   &kp AMPS   &kp PIPE
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│          │          │          │          │          │   │  &       │  _       │  +       │  │       │          │
-            &trans     &trans     &trans     &trans     &trans         &kp AMPS   &kp UNDER  &kp PLUS   &kp PIPE   &trans
+        //│  /       │  ^       │  %       │  \       │  @       │   │  (       │  )       │  <       │  >       │          │
+            &kp FSLH   &kp CARET  &kp PRCNT  &kp BSLH   &kp AT         &kp LPAR   &kp RPAR   &kp LT     &kp GT     &trans
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
                                             &kp ESC     &trans         &trans     &trans
         //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
