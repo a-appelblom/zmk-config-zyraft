@@ -17,6 +17,9 @@
  * both still tap their normal character). Whichever entry point is used, holding
  * it and tapping the TAB thumb key (now free) sends Escape.
  *
+ * Swedish letters (Å/Ä/Ö) live on the RIGHT layer's bottom-right row (only in the
+ * Swedish layer set - the English layer set has no single-key way to type them).
+ *
  * Language layout: the keyboard defaults to a Swedish OS keyboard layout (layers
  * 0-2). Press LANG (on Tri) to toggle a secondary layer set (layers 4-6) that
  * compensates for an English (US) OS keyboard layout instead, so the same physical
@@ -50,24 +53,26 @@
 
     // Swedish dead-key defeat macros: tap the dead key then Space so the bare
     // character (^, ~, `) is produced immediately instead of waiting to combine
-    // with the next key press.
+    // with the next key press. These use the Swedish-Mac physical key combos
+    // (Shift+]-key, AltGr+]-key, Shift+=-key), not the US CARET/TILDE/GRAVE
+    // keycodes, since those map to different physical keys on a Swedish layout.
     macros {
         se_caret: se_caret {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp CARET &kp SPACE>;
+            bindings = <&kp LS(RBKT) &kp SPACE>;
         };
 
         se_tilde: se_tilde {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp TILDE &kp SPACE>;
+            bindings = <&kp RA(RBKT) &kp SPACE>;
         };
 
         se_grave: se_grave {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp GRAVE &kp SPACE>;
+            bindings = <&kp LS(EQUAL) &kp SPACE>;
         };
     };
 
@@ -118,8 +123,8 @@
         //│ DELETE   │  4       │  5       │  6       │          │   │ LEFT     │ DOWN     │ UP       │ RIGHT    │  ;       │
             &kp DEL    &kp N4     &kp N5     &kp N6     &trans         &kp LEFT   &kp DOWN   &kp UP     &kp RIGHT  &kp LS(COMMA)
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│ CAPS WORD│  7       │  8       │  9       │  0       │   │          │          │          │          │          │
-           &caps_word  &kp N7     &kp N8     &kp N9     &kp N0         &trans     &trans     &trans     &trans     &trans
+        //│ CAPS WORD│  7       │  8       │  9       │  0       │   │  Å       │  Ä       │  Ö       │          │          │
+           &caps_word  &kp N7     &kp N8     &kp N9     &kp N0         &kp LBKT   &kp SQT    &kp SEMI   &trans     &trans
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
                                              &trans     &kp ESC        &trans     &trans
         //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
@@ -133,8 +138,8 @@
             display-name = "Left";
             bindings = <
         //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
-        //│          │  [       │  {       │  }       │          │   │  ^       │  (       │  )       │  ]       │  ~       │
-            &trans     &kp RA(N8) &kp LS(RA(N8)) &kp LS(RA(N9)) &trans   &se_caret  &kp LS(N8) &kp LS(N9) &kp RA(N9) &se_tilde
+        //│  "       │  [       │  {       │  }       │  '       │   │  ^       │  (       │  )       │  ]       │  ~       │
+            &kp LS(N2) &kp RA(N8) &kp LS(RA(N8)) &kp LS(RA(N9)) &kp NUHS   &se_caret  &kp LS(N8) &kp LS(N9) &kp RA(N9) &se_tilde
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
         //│  !       │  @       │  #       │  $       │  %       │   │  *       │  -       │  =       │  \       │  `       │
             &kp EXCL   &kp RA(N2) &kp HASH   &kp RA(N4) &kp PRCNT      &kp LS(NUHS) &kp FSLH &kp LS(N0) &kp LS(RA(N7)) &se_grave
@@ -213,8 +218,8 @@
             display-name = "Left EN";
             bindings = <
         //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
-        //│          │  [       │  {       │  }       │          │   │  ^       │  (       │  )       │  ]       │  ~       │
-            &trans     &kp LBKT   &kp LBRC   &kp RBRC   &trans         &kp CARET  &kp LPAR   &kp RPAR   &kp RBKT   &kp TILDE
+        //│  "       │  [       │  {       │  }       │  '       │   │  ^       │  (       │  )       │  ]       │  ~       │
+            &kp DQT    &kp LBKT   &kp LBRC   &kp RBRC   &kp SQT        &kp CARET  &kp LPAR   &kp RPAR   &kp RBKT   &kp TILDE
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
         //│  !       │  @       │  #       │  $       │  %       │   │  *       │  -       │  =       │  \       │  `       │
             &kp EXCL   &kp AT     &kp HASH   &kp DLLR   &kp PRCNT      &kp ASTRK  &kp MINUS  &kp EQUAL  &kp BSLH   &kp GRAVE

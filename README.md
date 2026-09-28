@@ -36,6 +36,9 @@ The `left_layer`/`left_layer_en` symbols layer can be reached three ways:
 used to enter the layer, the `TAB` thumb key becomes free, so tapping it while the
 layer is held sends **Escape**.
 
+`"` and `'` are also available on the symbols layer, on the `Q` and `T` keys
+respectively (in addition to `'` already living on the home row).
+
 ## Home-row mods
 
 ### Left hand
@@ -106,6 +109,10 @@ compensated so the same physical keys produce the expected Swedish symbols). `de
 - Mappings target **macOS's** Swedish layout (Option key = AltGr). Windows/Linux use
   different combinations for `{`, `}`, `|` and `\`, so those four keys would need adjusting
   if used with Windows or Linux set to Swedish.
+- Swedish letters `Å`, `Ä`, `Ö` are available on `right_layer` (numbers layer), on the
+  bottom-right row (`N`/`M`/`,` columns). They're only mapped in the Swedish layer set,
+  since the English layer set assumes an English OS layout with no single-key way to
+  produce them.
 
 ## Build
 
