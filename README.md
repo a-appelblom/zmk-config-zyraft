@@ -16,13 +16,13 @@ ZMK configuration for **Zyra FT** (Sweep/Cradio) - minimalist ergonomic FalbaTec
 
 | # | Name | Function |
 |---|---|---|
-| 0 | `default_layer` | QWERTY base + home-row mods (default, English OS layout) |
-| 1 | `right_layer` | Numbers, navigation, activated by the left thumb (`BSPC`) |
-| 2 | `left_layer` | Symbols, brackets, activated by the left thumb (`TAB`) |
+| 0 | `default_layer` | QWERTY base + home-row mods, compensated for a **Swedish** OS keyboard layout (default) |
+| 1 | `right_layer` | Numbers, navigation, compensated for Swedish, activated by the left thumb (`BSPC`) |
+| 2 | `left_layer` | Symbols, brackets, compensated for Swedish, activated by the left thumb (`TAB`) |
 | 3 | `tri_layer` | System, BT controls, both left thumb keys together |
-| 4 | `default_layer_se` | Swedish OS-layout overlay of the base layer, toggled via `LANG` |
-| 5 | `right_layer_se` | Swedish OS-layout overlay of `right_layer` |
-| 6 | `left_layer_se` | Swedish OS-layout overlay of `left_layer` |
+| 4 | `default_layer_en` | English OS-layout overlay of the base layer, toggled via `LANG` |
+| 5 | `right_layer_en` | English OS-layout overlay of `right_layer` |
+| 6 | `left_layer_en` | English OS-layout overlay of `left_layer` |
 
 ## Home-row mods
 
@@ -77,18 +77,18 @@ System layer activation:
 - hold the left thumb keys `TAB` and `BSPC` together
 - the Tri layer activates automatically as a conditional layer
 
-## Swedish OS-layout support
+## Swedish/English OS-layout support
 
 ZMK sends raw HID keycodes; the OS keyboard-language setting determines which character each
-keycode produces. Switching the OS language to Swedish would shift most punctuation on the
-`right_layer`/`left_layer` symbol keys. `default_layer_se`, `right_layer_se` and `left_layer_se`
-compensate for this so the same physical keys keep producing the same symbols with the OS set
-to Swedish.
+keycode produces. The keyboard **defaults to a Swedish OS keyboard layout** (layers 0-2 are
+compensated so the same physical keys produce the expected Swedish symbols). `default_layer_en`,
+`right_layer_en` and `left_layer_en` are a secondary set that instead compensate for an
+**English (US)** OS keyboard layout.
 
-- Press `LANG` on the `tri_layer` (top-left key of the right half) to toggle the Swedish
-  overlay on or off. Press it again to switch back to English.
+- Press `LANG` on the `tri_layer` (top-left key of the right half) to toggle the English
+  overlay on or off. Press it again to switch back to the Swedish default.
 - Letters are unaffected - Swedish keyboards use the same QWERTY letter positions as US ones.
-- `^`, `~` and `` ` `` are dead keys on the Swedish layout; the SE layer sends a macro that
+- `^`, `~` and `` ` `` are dead keys on the Swedish layout; the base layer sends a macro that
   presses the compensated combo followed by Space so the bare character still appears
   immediately.
 - Mappings target **macOS's** Swedish layout (Option key = AltGr). Windows/Linux use

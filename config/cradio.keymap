@@ -2,7 +2,7 @@
  * Zyra FT (Cradio/Sweep) keymap
  *
  * 34 keys, 7 layers: BASE, RIGHT (numbers/navigation), LEFT (symbols), TRI (system),
- * BASE SE, RIGHT SE, LEFT SE (Swedish-OS secondary layers, macOS-targeted)
+ * BASE EN, RIGHT EN, LEFT EN (English-OS secondary layers, macOS-targeted)
  * Home-row mods: Ctrl/Alt/Gui/Shift on the left (A/S/D/F), mirrored on the right (J/K/L/')
  * ZMK Studio compatible (left = central, USB)
  *
@@ -12,11 +12,11 @@
  *
  * studio_unlock = TRI layer + Q (that is, LT(2,TAB) + LT(1,BSPC) + Q)
  *
- * Language layout: the keyboard defaults to an English (US) OS keyboard layout
- * (layers 0-2). Press LANG (on Tri) to toggle a secondary layer set (layers 4-6)
- * that compensates for a Swedish OS keyboard layout instead, so the same physical
+ * Language layout: the keyboard defaults to a Swedish OS keyboard layout (layers
+ * 0-2). Press LANG (on Tri) to toggle a secondary layer set (layers 4-6) that
+ * compensates for an English (US) OS keyboard layout instead, so the same physical
  * keys always produce the same characters regardless of which language the OS is
- * set to. The Swedish secondary layers are targeted primarily at macOS; only the
+ * set to. The English secondary layers are targeted primarily at macOS; only the
  * "{", "}", "|" and "\" keys would need adjusting for Windows/Linux.
  */
 
@@ -67,14 +67,14 @@
     };
 
     // Layer 1 (RIGHT) + Layer 2 (LEFT) simultaneously -> Layer 3 (TRI)
-    // Layer 5 (RIGHT SE) + Layer 6 (LEFT SE) simultaneously -> Layer 3 (TRI)
+    // Layer 5 (RIGHT EN) + Layer 6 (LEFT EN) simultaneously -> Layer 3 (TRI)
     conditional_layers {
         compatible = "zmk,conditional-layers";
         tri_layer {
             if-layers = <1 2>;
             then-layer = <3>;
         };
-        tri_layer_se {
+        tri_layer_en {
             if-layers = <5 6>;
             then-layer = <3>;
         };
@@ -83,7 +83,7 @@
     keymap {
         compatible = "zmk,keymap";
 
-        // English (default) base layer.
+        // Swedish (default) base layer.
         default_layer {
             display-name = "Base";
             bindings = <
@@ -92,25 +92,26 @@
             &kp Q      &kp W      &kp E      &kp R      &kp T          &kp Y      &kp U      &kp I      &kp O      &kp P
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
         //│  A (Sft) │  S (Alt) │  D (Ctl) │  F (Gui) │  G       │   │  H       │  J (Gui) │  K (Ctl) │  L (Alt) │  ' (Sft) │
-            HRML(A,        S,         D,         F)     &kp G          &kp H      HRMR(J,        K,         L,        SQT)
+            HRML(A,        S,         D,         F)     &kp G          &kp H      HRMR(J,        K,         L,        NUHS)
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
         //│  Z       │  X       │  C       │  V       │  B       │   │  N       │  M       │ , <      │ . >      │ / ?      │
-            &kp Z      &kp X      &kp C      &kp V      &kp B          &kp N      &kp M      &kp COMMA  &kp DOT    &kp FSLH
+            &kp Z      &kp X      &kp C      &kp V      &kp B          &kp N      &kp M      &kp COMMA  &kp DOT    &kp LS(N7)
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
                                             &lt 2 TAB   &lt 1 BSPC    &kp ENTER  &kp SPACE
         //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
             >;
         };
 
+        // Swedish numbers/navigation layer.
         right_layer {
             display-name = "Right";
             bindings = <
         //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
         //│ INSERT   │  1       │  2       │  3       │          │   │ HOME     │ PAGE DN  │ PAGE UP  │ END      │  :       │
-            &kp INS    &kp N1     &kp N2     &kp N3     &trans         &kp HOME   &kp PG_DN  &kp PG_UP  &kp END    &kp COLON
+            &kp INS    &kp N1     &kp N2     &kp N3     &trans         &kp HOME   &kp PG_DN  &kp PG_UP  &kp END    &kp LS(DOT)
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
         //│ DELETE   │  4       │  5       │  6       │          │   │ LEFT     │ DOWN     │ UP       │ RIGHT    │  ;       │
-            &kp DEL    &kp N4     &kp N5     &kp N6     &trans         &kp LEFT   &kp DOWN   &kp UP     &kp RIGHT  &kp SEMI
+            &kp DEL    &kp N4     &kp N5     &kp N6     &trans         &kp LEFT   &kp DOWN   &kp UP     &kp RIGHT  &kp LS(COMMA)
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
         //│ CAPS WORD│  7       │  8       │  9       │  0       │   │          │          │          │          │          │
            &caps_word  &kp N7     &kp N8     &kp N9     &kp N0         &trans     &trans     &trans     &trans     &trans
@@ -120,18 +121,19 @@
             >;
         };
 
+        // Swedish symbols layer.
         left_layer {
             display-name = "Left";
             bindings = <
         //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
         //│          │  [       │  {       │  }       │          │   │  ^       │  (       │  )       │  ]       │  ~       │
-            &trans     &kp LBKT   &kp LBRC   &kp RBRC   &trans         &kp CARET  &kp LPAR   &kp RPAR   &kp RBKT   &kp TILDE
+            &trans     &kp RA(N8) &kp LS(RA(N8)) &kp LS(RA(N9)) &trans   &se_caret  &kp LS(N8) &kp LS(N9) &kp RA(N9) &se_tilde
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
         //│  !       │  @       │  #       │  $       │  %       │   │  *       │  -       │  =       │  \       │  `       │
-            &kp EXCL   &kp AT     &kp HASH   &kp DLLR   &kp PRCNT      &kp ASTRK  &kp MINUS  &kp EQUAL  &kp BSLH   &kp GRAVE
+            &kp EXCL   &kp RA(N2) &kp HASH   &kp RA(N4) &kp PRCNT      &kp LS(NUHS) &kp FSLH &kp LS(N0) &kp LS(RA(N7)) &se_grave
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
         //│          │          │          │          │          │   │  &       │  _       │  +       │  │       │          │
-            &trans     &trans     &trans     &trans     &trans         &kp AMPS   &kp UNDER  &kp PLUS   &kp PIPE   &trans
+            &trans     &trans     &trans     &trans     &trans         &kp LS(N6) &kp LS(FSLH) &kp MINUS &kp RA(N7) &trans
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
                                              &trans     &trans         &trans     &trans
         //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
@@ -156,39 +158,39 @@
             >;
         };
 
-        // Swedish-compensated base layer. Overlays default_layer (toggled via LANG on Tri).
+        // English (secondary) base layer. Overlays default_layer (toggled via LANG on Tri).
         // Letters are untouched (identical on US and Swedish keyboards); only the apostrophe
-        // key and the thumb layer-taps (pointing at right_layer_se/left_layer_se) change.
-        default_layer_se {
-            display-name = "Base SE";
+        // key and the thumb layer-taps (pointing at right_layer_en/left_layer_en) change.
+        default_layer_en {
+            display-name = "Base EN";
             bindings = <
         //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
         //│          │          │          │          │          │   │          │          │          │          │          │
             &trans     &trans     &trans     &trans     &trans         &trans     &trans     &trans     &trans     &trans
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
         //│          │          │          │          │          │   │          │          │          │          │  ' (Sft) │
-            &trans     &trans     &trans     &trans     &trans         &trans     &trans     &trans     &trans     &ht RCTRL NUHS
+            &trans     &trans     &trans     &trans     &trans         &trans     &trans     &trans     &trans     &ht RCTRL SQT
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
         //│          │          │          │          │          │   │          │          │          │          │ / ?      │
-            &trans     &trans     &trans     &trans     &trans         &trans     &trans     &trans     &trans     &kp LS(N7)
+            &trans     &trans     &trans     &trans     &trans         &trans     &trans     &trans     &trans     &kp FSLH
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
                                             &lt 6 TAB   &lt 5 BSPC     &trans     &trans
         //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
             >;
         };
 
-        // Swedish-compensated numbers/navigation layer. Fully self-contained: it is a
+        // English (secondary) numbers/navigation layer. Fully self-contained: it is a
         // momentary layer, so it cannot rely on falling through to right_layer (which is
         // never active at the same time).
-        right_layer_se {
-            display-name = "Right SE";
+        right_layer_en {
+            display-name = "Right EN";
             bindings = <
         //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
         //│ INSERT   │  1       │  2       │  3       │          │   │ HOME     │ PAGE DN  │ PAGE UP  │ END      │  :       │
-            &kp INS    &kp N1     &kp N2     &kp N3     &trans         &kp HOME   &kp PG_DN  &kp PG_UP  &kp END    &kp LS(DOT)
+            &kp INS    &kp N1     &kp N2     &kp N3     &trans         &kp HOME   &kp PG_DN  &kp PG_UP  &kp END    &kp COLON
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
         //│ DELETE   │  4       │  5       │  6       │          │   │ LEFT     │ DOWN     │ UP       │ RIGHT    │  ;       │
-            &kp DEL    &kp N4     &kp N5     &kp N6     &trans         &kp LEFT   &kp DOWN   &kp UP     &kp RIGHT  &kp LS(COMMA)
+            &kp DEL    &kp N4     &kp N5     &kp N6     &trans         &kp LEFT   &kp DOWN   &kp UP     &kp RIGHT  &kp SEMI
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
         //│ CAPS WORD│  7       │  8       │  9       │  0       │   │          │          │          │          │          │
            &caps_word  &kp N7     &kp N8     &kp N9     &kp N0         &trans     &trans     &trans     &trans     &trans
@@ -198,21 +200,19 @@
             >;
         };
 
-        // Swedish-compensated symbols layer. Every symbol is remapped so the physical key
-        // still outputs the same character as on left_layer, even with the OS set to Swedish.
-        // Mappings target macOS's Swedish layout (Option = AltGr).
-        left_layer_se {
-            display-name = "Left SE";
+        // English (secondary) symbols layer.
+        left_layer_en {
+            display-name = "Left EN";
             bindings = <
         //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
         //│          │  [       │  {       │  }       │          │   │  ^       │  (       │  )       │  ]       │  ~       │
-            &trans     &kp RA(N8) &kp LS(RA(N8)) &kp LS(RA(N9)) &trans   &se_caret  &kp LS(N8) &kp LS(N9) &kp RA(N9) &se_tilde
+            &trans     &kp LBKT   &kp LBRC   &kp RBRC   &trans         &kp CARET  &kp LPAR   &kp RPAR   &kp RBKT   &kp TILDE
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
         //│  !       │  @       │  #       │  $       │  %       │   │  *       │  -       │  =       │  \       │  `       │
-            &kp EXCL   &kp RA(N2) &kp HASH   &kp RA(N4) &kp PRCNT      &kp LS(NUHS) &kp FSLH &kp LS(N0) &kp LS(RA(N7)) &se_grave
+            &kp EXCL   &kp AT     &kp HASH   &kp DLLR   &kp PRCNT      &kp ASTRK  &kp MINUS  &kp EQUAL  &kp BSLH   &kp GRAVE
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
         //│          │          │          │          │          │   │  &       │  _       │  +       │  │       │          │
-            &trans     &trans     &trans     &trans     &trans         &kp LS(N6) &kp LS(FSLH) &kp MINUS &kp RA(N7) &trans
+            &trans     &trans     &trans     &trans     &trans         &kp AMPS   &kp UNDER  &kp PLUS   &kp PIPE   &trans
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
                                              &trans     &trans         &trans     &trans
         //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
