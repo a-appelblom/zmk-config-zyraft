@@ -151,7 +151,7 @@
             &trans     &kp LBKT   &kp SQT    &kp SEMI   &se_grave      &kp RA(N8) &kp RA(N9) &kp RA(N4) &kp LS(N6) &kp RA(N7)
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
         //│  /       │  ^       │  %       │  \       │  @       │   │  (       │  )       │  <       │  >       │          │
-            &kp LS(N7) &se_caret  &kp PRCNT  &kp LS(RA(N7)) &kp RA(N2) &kp LS(N8) &kp LS(N9) &kp NUBS   &kp LS(NUBS) &trans
+            &kp LS(N7) &se_caret  &kp PRCNT  &kp LS(RA(N7)) &kp RA(N2) &kp LS(N8) &kp LS(N9) &kp GRAVE  &kp LS(GRAVE) &trans
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
                                             &kp ESC     &trans         &trans     &trans
         //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯

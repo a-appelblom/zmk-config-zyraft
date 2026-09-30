@@ -117,6 +117,8 @@ compensated so the same physical keys produce the expected Swedish symbols). `de
 - Mappings target **macOS's** Swedish layout (Option key = AltGr). Windows/Linux use
   different combinations for `{`, `}`, `|` and `\`, so those four keys would need adjusting
   if used with Windows or Linux set to Swedish.
+- The Swedish `<`/`>` bindings use `GRAVE`/`Shift+GRAVE` to compensate for macOS
+  swapping the ISO `NUBS` and `GRAVE` HID positions on this keyboard.
 - Swedish letters `Å`, `Ä`, `Ö` are available on `left_layer` (symbols layer), on the
   home row. They're only mapped in the Swedish layer set, since the English layer set
   assumes an English OS layout with no single-key way to produce them.
