@@ -44,6 +44,15 @@
 
 / {
     behaviors {
+        bspc_lt: backspace_layer_tap {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <200>;
+            bindings = <&mo>, <&kp>;
+        };
+
         ht: hold_tap {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
@@ -111,7 +120,7 @@
         //│ Z (Sym)  │  X       │  C       │  V       │  B       │   │  N       │  M       │ , <      │ . >      │ - (Sym)  │
             &lt 2 Z    &kp X      &kp C      &kp V      &kp B          &kp N      &kp M      &kp COMMA  &kp DOT    &lt 2 FSLH
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
-                                            &lt 2 TAB   &lt 1 BSPC    &kp ENTER  &kp SPACE
+                                            &lt 2 TAB   &bspc_lt 1 BSPC &lt 1 ENTER &kp SPACE
         //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
             >;
         };
@@ -121,14 +130,14 @@
             display-name = "Right";
             bindings = <
         //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
-        //│ INSERT   │  1       │  2       │  3       │          │   │ HOME     │ PAGE DN  │ UP       │ END      │  :       │
-            &kp INS    &kp N1     &kp N2     &kp N3     &trans         &kp HOME   &kp PG_DN  &kp UP     &kp END    &kp LS(DOT)
+        //│ INSERT   │  7       │  8       │  9       │          │   │ HOME     │ PAGE DN  │ UP       │ END      │  :       │
+            &kp INS    &kp N7     &kp N8     &kp N9     &trans         &kp HOME   &kp PG_DN  &kp UP     &kp END    &kp LS(DOT)
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
         //│ DELETE   │  4       │  5       │  6       │          │   │ PAGE UP  │ LEFT     │ DOWN     │ RIGHT    │  ;       │
             &kp DEL    &kp N4     &kp N5     &kp N6     &trans         &kp PG_UP  &kp LEFT   &kp DOWN   &kp RIGHT  &kp LS(COMMA)
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│ CAPS WORD│  7       │  8       │  9       │  0       │   │          │          │          │          │          │
-           &caps_word  &kp N7     &kp N8     &kp N9     &kp N0         &trans     &trans     &trans     &trans     &trans
+        //│ CAPS WORD│  1       │  2       │  3       │  0       │   │          │          │          │          │          │
+           &caps_word  &kp N1     &kp N2     &kp N3     &kp N0         &trans     &trans     &trans     &trans     &trans
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
                                              &trans     &kp ESC        &trans     &trans
         //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
@@ -192,7 +201,7 @@
         //│ Z (Sym)  │          │          │          │          │   │          │          │          │          │ - (Sym)  │
             &lt 6 Z     &trans     &trans     &trans     &trans         &trans     &trans     &trans     &trans     &lt 6 MINUS
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
-                                            &lt 6 TAB   &lt 5 BSPC     &trans     &trans
+                                            &lt 6 TAB   &bspc_lt 5 BSPC &lt 5 ENTER &trans
         //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
             >;
         };
@@ -204,14 +213,14 @@
             display-name = "Right EN";
             bindings = <
         //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
-        //│ INSERT   │  1       │  2       │  3       │          │   │ HOME     │ PAGE DN  │ UP       │ END      │  :       │
-            &kp INS    &kp N1     &kp N2     &kp N3     &trans         &kp HOME   &kp PG_DN  &kp UP     &kp END    &kp COLON
+        //│ INSERT   │  7       │  8       │  9       │          │   │ HOME     │ PAGE DN  │ UP       │ END      │  :       │
+            &kp INS    &kp N7     &kp N8     &kp N9     &trans         &kp HOME   &kp PG_DN  &kp UP     &kp END    &kp COLON
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
         //│ DELETE   │  4       │  5       │  6       │          │   │ PAGE UP  │ LEFT     │ DOWN     │ RIGHT    │  ;       │
             &kp DEL    &kp N4     &kp N5     &kp N6     &trans         &kp PG_UP  &kp LEFT   &kp DOWN   &kp RIGHT  &kp SEMI
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│ CAPS WORD│  7       │  8       │  9       │  0       │   │          │          │          │          │          │
-           &caps_word  &kp N7     &kp N8     &kp N9     &kp N0         &trans     &trans     &trans     &trans     &trans
+        //│ CAPS WORD│  1       │  2       │  3       │  0       │   │          │          │          │          │          │
+           &caps_word  &kp N1     &kp N2     &kp N3     &kp N0         &trans     &trans     &trans     &trans     &trans
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
                                              &trans     &kp ESC        &trans     &trans
         //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯

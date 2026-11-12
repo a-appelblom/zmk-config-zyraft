@@ -17,12 +17,27 @@ ZMK configuration for **Zyra FT** (Sweep/Cradio) - minimalist ergonomic FalbaTec
 | # | Name | Function |
 |---|---|---|
 | 0 | `default_layer` | QWERTY base + home-row mods, compensated for a **Swedish** OS keyboard layout (default) |
-| 1 | `right_layer` | Numbers, navigation (arrows on `I`/`J`/`K`/`L`), compensated for Swedish, activated by the left thumb (`BSPC`) |
+| 1 | `right_layer` | Numbers, navigation (arrows on `I`/`J`/`K`/`L`), compensated for Swedish, activated by holding `BSPC` or the inner right thumb (`ENTER`) |
 | 2 | `left_layer` | Symbols, brackets, Swedish letters, compensated for Swedish, activated by the left thumb (`TAB`), `Z` or `-` |
 | 3 | `tri_layer` | System, BT controls, both left thumb keys together |
 | 4 | `default_layer_en` | English OS-layout overlay of the base layer, toggled via `LANG` |
 | 5 | `right_layer_en` | English OS-layout overlay of `right_layer` |
 | 6 | `left_layer_en` | English OS-layout overlay of `left_layer` |
+
+## Numbers/navigation layer access
+
+Hold `BSPC` on the left hand or the inner (left) thumb key on the right hand
+(`ENTER`) to activate the numbers/navigation layer. Tapping these keys still sends
+Backspace or Enter, respectively; the outer right thumb remains Space. This applies
+to both Swedish and English layouts.
+
+For repeated deletion, tap `BSPC`, then press it again and hold within 200 ms of
+the first press. The second press holds Backspace for normal OS key repeat instead
+of activating the layer. Holding `BSPC` without a preceding quick tap still
+activates the numbers/navigation layer.
+
+Numbers use full-size keyboard numpad order: `7 8 9` on the top row, `4 5 6` on the
+home row, and `1 2 3` on the bottom row. `0` stays to the right of `3`.
 
 ## Symbols layer access
 
