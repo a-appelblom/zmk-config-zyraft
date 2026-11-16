@@ -129,22 +129,27 @@ compensated so the same physical keys produce the expected Swedish symbols). `de
 - `^`, `~` and `` ` `` are dead keys on the Swedish layout; the base layer sends a macro that
   presses the compensated combo followed by Space so the bare character still appears
   immediately.
-- Mappings target **macOS's** Swedish layout (Option key = AltGr). Windows/Linux use
-  different combinations for `{`, `}`, `|` and `\`, so those four keys would need adjusting
-  if used with Windows or Linux set to Swedish.
-- The Swedish `<`/`>` bindings use `GRAVE`/`Shift+GRAVE` to compensate for macOS
-  swapping the ISO `NUBS` and `GRAVE` HID positions on this keyboard.
+- Mappings in `config/cradio.keymap` target **macOS's** Swedish layout (Option key = AltGr).
+- `config/cradio_windows.keymap` (built from `config_windows/`) provides a Windows-targeted
+  variant with the same Swedish preferences/layer behavior, adjusted for Windows's Swedish
+  layout: `{`, `}`, `|`, `\` use Windows AltGr combos (`RA(N7)`, `RA(N0)`, `RA(NUBS)`,
+  `RA(MINUS)`) and `<`/`>` use `NUBS`/`LS(NUBS)` (no macOS NUBS/GRAVE swap compensation).
+- The English secondary layers remain suitable for a US OS layout on both platforms.
 - Swedish letters `Å`, `Ä`, `Ö` are available on `left_layer` (symbols layer), on the
   home row. They're only mapped in the Swedish layer set, since the English layer set
   assumes an English OS layout with no single-key way to produce them.
 
 ## Build
 
-GitHub Actions builds 3 firmware files:
+GitHub Actions builds firmware for both macOS and Windows Swedish layouts:
 
-- `zyra_left-nice_nano-zmk.uf2`
-- `zyra_right-nice_nano-zmk.uf2`
-- `settings_reset-nice_nano-zmk.uf2`
+- `zyra_left-nice_nano-zmk.uf2` - left half (macOS-targeted Swedish layout)
+- `zyra_right-nice_nano-zmk.uf2` - right half (macOS-targeted Swedish layout)
+- `zyra_left_windows.uf2` - left half (Windows-targeted Swedish layout)
+- `zyra_right_windows.uf2` - right half (Windows-targeted Swedish layout)
+- `settings_reset-nice_nano-zmk.uf2` - Bluetooth/settings reset
+
+The macOS build uses `config/`. The Windows build uses `config_windows/` (with `config/cradio_windows.keymap` as the corresponding keymap source).
 
 ## Flashing
 
